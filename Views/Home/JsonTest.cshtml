@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewData["Title"] = "JsonTest";
+}
+
+<h1>JsonTest</h1>
+
+<ul id="employeelist">
+
+</ul>
+
+@section Scripts{
+    <script>
+        const emps = [{ "name": "Tom", "workYears": 3, "salary": 35000 },
+        { "name": "Jack", "workYears": 5, "salary": 40000 },
+        { "name": "Mary", "workYears": 7, "salary": 45000 }];
+
+        //讀多筆資料用迴圈
+        for (let i = 0, max = emps.length; i < max; i++) {
+            console.log(emps[i].name)
+            console.log(emps[i].workYears)
+            console.log(emps[i].salary)
+        }
+
+        const theUl = document.querySelector('#ul1');
+
+        const datas = emps.map(emp => {
+            return (`<li>${emp.name},${emp.workYears},${emp.salary}</li>`)
+
+        })
+        theUl.innerHTML = datas.join("");
+        
+    </script>
+}
