@@ -39,5 +39,13 @@
     <script src="~/js/travel.js"></script>
     <script>
         console.log(spots.CommonFormat.Section);
+        if(spots.CommonFormat.Section[i].file.img==null){
+
+        }
+        for (let i = 0, max = spots.CommonFormat.Section.length; i < max; i++) {
+            console.log(spots.CommonFormat.Section[i].stitle)
+            console.log(spots.CommonFormat.Section[i].xbody.substring(0,100))
+            console.log(spots.CommonFormat.Section[i].file.img[0])
+        }
     </script>
 }
