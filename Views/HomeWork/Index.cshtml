@@ -1,51 +1,32 @@
 ﻿@{
     ViewData["Title"] = "Index";
 }
-<div class="card-group">
-    <div class="card">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-        <div class="card-footer">
-            <small class="text-body-secondary">Last updated 3 mins ago</small>
-        </div>
-    </div>
-    <div class="card">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-        </div>
-        <div class="card-footer">
-            <small class="text-body-secondary">Last updated 3 mins ago</small>
-        </div>
-    </div>
-    <div class="card">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-        </div>
-        <div class="card-footer">
-            <small class="text-body-secondary">Last updated 3 mins ago</small>
-        </div>
-    </div>
-</div>
+<div id="travel" class="row row-cols-1 row-cols-md-3 g-4"></div>
+
 
 <!--https://getbootstrap.com/docs/5.3/components/card/#card-groups-->
 @section Scripts {
     <script src="~/js/travel.js"></script>
     <script>
-        console.log(spots.CommonFormat.Section);
-        if(spots.CommonFormat.Section[i].file.img==null){
-
-        }
-        for (let i = 0, max = spots.CommonFormat.Section.length; i < max; i++) {
-            console.log(spots.CommonFormat.Section[i].stitle)
-            console.log(spots.CommonFormat.Section[i].xbody.substring(0,100))
-            console.log(spots.CommonFormat.Section[i].file.img[0])
-        }
+        // console.log(spots.CommonFormat.Section);
+        const sections = spots.CommonFormat.Section;
+        let context="";
+        sections.forEach(s => {
+            const xbody = s.xbody.substring(0, 100)+"...";
+            const img = s.file.img[0]?.text;
+            context +=  `           
+               <div class="card-group">
+                    <img src="${img}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">${s.stitle}</h5>
+                        <p class="card-text">${xbody} </p>
+                    </div>
+                    <div class="card-footer">   
+                        <small class="text-muted">${s.address}</small>
+                    </div>
+                </div>` 
+        })
+        $('#travel').html(context);
+           
     </script>
 }
