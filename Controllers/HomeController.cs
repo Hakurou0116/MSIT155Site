@@ -15,9 +15,20 @@ namespace MSIT155Site.Controllers
 
         public IActionResult Index()
         {
+            
             return View();
         }
         public IActionResult JsonTest()
+        {
+            return View();
+        }
+        public IActionResult First()
+        {
+         
+            return View();
+        }
+
+        public IActionResult Register()
         {
             return View();
         }
