@@ -1,10 +1,15 @@
 ﻿
 @{
+    ViewData["Title"] = "CheckAccount";
+}
+
+<h1>CheckAccount</h1>
+
+@{
     ViewData["Title"] = "Register";
 }
 
 <h1>Register</h1>
-
 <div class="row">
     <div class="col-3"></div>
     <div class="col-6">
@@ -31,38 +36,17 @@
     </div>
 </div>
 
-
-
-@section Scripts{
+@section Scripts {
     <script>
-        const btnSubmit = document.querySelector('#button1');
-        const txtName = document.querySelector('#userName');
-        const txtEmail = document.querySelector('#UserEmail');
-        const txtAge = document.querySelector('#userAge');
-        const divInfo = document.querySelector('#div1');
-
-        btnSubmit.addEventListener('click', async (event) => {
-            event.preventDefault(); //停止預設行為
-            // console.log(txtName.value);
-            // console.log(txtEmail.value);
-            // console.log(txtAge.value);
-
-            const url = `@Url.Content("~/api/register")?name=${txtName.value}&age=${txtAge.value}&email=${txtEmail.value}`;
+        const username = document.querySelector('#userName')
+        
+        
+        (asnyc()=> {
+            const url = '@Url.Content("~/api/checkaccount")?name=${Name}';
             const response = await fetch(url);
             const data = await response.text();
+            console.log(data)
+        } )();
 
-            divInfo.innerHTML = data;
-
-
-        })
-
-        // (async() => {
-        //     const url = '@Url.Content("~/api/register")?name=Tom&age=30';
-        //     const response = await fetch(url);
-        //     const data = await response.text();
-        //     console.log(data);
-        
-        // })();
     </script>
-
 }

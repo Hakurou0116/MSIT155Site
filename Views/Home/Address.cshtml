@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewData["Title"] = "Address";
+}
+
+<h1>Address</h1>
+<select id="selectCity">
+</select>
+<select id="selectDistricts">
+    
+</select>
+<select id="selectRoads">
+
+</select>
+
+@section Scripts{
+    <script>
+        const selCity = document.querySelector('#selectCity');
+        const selDistricts = document.querySelector('#selectDistricts');
+        const selRoads = document.querySelector('#selectRoads');
+
+        (async () => {
+            const url = '@Url.Content("~/api/cities")';
+            const response = await fetch(url)
+            const datas = await response.json();
+
+            //資料讀取  datas.forEach()  for(let i=0;i<datas.length;i++){}
+            //[{},{}]
+            const optCities = datas.map(city => `<option value=${city}>${city}</option>`);
+
+            //資料顯示
+            selCity.innerHTML = optCities.join("");
+
+            //載入鄉鎮區的資料
+            loadDistricts();
+        })();
+
+        const loadDistricts = async() => {
+
+            const city=selCity.options[selCity.selectedIndex].value;
+            const url = `@Url.Content("~/api/districts")?city=${city}`;
+            const response = await fetch(url)
+            const datas = await response.json();
+            
+            //讀取資料
+            const optDistricts = datas.map(district => `<option value=${district}>${district}</option>`);
+
+            //載入資料
+            selDistricts.innerHTML = optDistricts.join("");
+
+            //載入路的資料
+            loadRoads();
+
+              //確認有讀取到選擇的值
+              // console.log(selDistricts.selectedIndex);
+              // console.log(selDistricts.options[selDistricts.selectedIndex].value);
+            
+             
+        }
+
+        selCity.addEventListener('change', loadDistricts);
+
+        const loadRoads = async () => {
+
+            const siteid = selDistricts.options[selDistricts.selectedIndex].value;
+            const url = `@Url.Content("~/api/roads")?siteId=${siteid}`;
+            const response = await fetch(url)
+            const datas = await response.json();
+            console.log(datas);
+
+             //讀取資料
+             const optRoads = datas.map(road => `<option value='${road}'>${road}</option>`);
+
+             //載入資料
+             selRoads.innerHTML = optRoads.join("");
+        }
+        
+        
+        selDistricts.addEventListener('change', loadRoads);
+
+
+
+    </script>
+
+}
