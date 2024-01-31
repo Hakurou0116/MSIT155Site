@@ -72,13 +72,13 @@ namespace MSIT155Site.Controllers
             return NotFound();
         }
 
-        //public IActionResult CheckAccount()
-        //{
-        //    if (_context.Members.Any(m => m.Name == Name))
-        //    {
-
-        //    }
-        //}
+        public IActionResult CheckAccount(string Name)
+        {
+            if (_context.Members.Any(m => m.Name == Name))
+                return Content($"帳號 {Name} 已被註冊");
+            else
+                return Content($"帳號 {Name} 可以使用");
+        }
 
     }
 }

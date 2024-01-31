@@ -39,14 +39,9 @@
 @section Scripts {
     <script>
         const username = document.querySelector('#userName')
+
+
         
-        
-        (asnyc()=> {
-            const url = '@Url.Content("~/api/checkaccount")?name=${Name}';
-            const response = await fetch(url);
-            const data = await response.text();
-            console.log(data)
-        } )();
 
     </script>
 }
