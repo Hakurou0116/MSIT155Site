@@ -38,9 +38,20 @@
 
 @section Scripts {
     <script>
+
+        //獲得username與divWarning元素
         const username = document.querySelector('#userName')
+        const divWarning = document.querySelector('#divWarning')
 
+        //username失焦事件blur
+        username.addEventListener('blur', async () => {
+            const url = `@Url.Content("~/api/checkaccount")?name=${username.value}`;
+            const response = await fetch(url);
+            const data = await response.text();
 
+            divWarning.innerHTML = data;
+
+        })
         
 
     </script>
