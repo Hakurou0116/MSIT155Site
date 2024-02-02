@@ -40,6 +40,8 @@ namespace MSIT155Site.Controllers
             {
                 fileName = _user.Avatar.FileName;
             }
+
+            //上傳路徑
             string uploadPath = Path.Combine(_environment.WebRootPath, "uploads", fileName);
 
 
@@ -56,15 +58,12 @@ namespace MSIT155Site.Controllers
         [HttpPost]
         public IActionResult HWRegister(Member member, IFormFile avatar)
         {
-            if (string.IsNullOrEmpty(member.Name)) //預設
-            {
-                member.Name = "guest";
-            }
-
             if (avatar == null)
-            {
-                return NoContent();
-            }
+             return NoContent();
+            
+            if (_context.Members.Any(m => m.Name == member.Name))
+                return Content($"帳號 {member.Name} 已被註冊");
+            
 
             //儲存路徑
             string uploadPath = Path.Combine(_environment.WebRootPath, "uploads", avatar.FileName);
