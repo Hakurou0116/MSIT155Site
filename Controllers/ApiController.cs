@@ -52,6 +52,33 @@ namespace MSIT155Site.Controllers
 
             return Content(uploadPath);
         }
+
+        [HttpPost]
+        public IActionResult HWRegister(Member member, IFormFile avatar)
+        {
+            if (string.IsNullOrEmpty(member.Name)) //預設
+            {
+                member.Name = "guest";
+            }
+
+            if (avatar == null)
+            {
+                return NoContent();
+            }
+
+            //儲存路徑
+            string uploadPath = Path.Combine(_environment.WebRootPath, "uploads", avatar.FileName);
+            //上傳檔案
+            using (var fileStream = new FileStream(uploadPath,FileMode.Create))
+            {
+                avatar.CopyTo(fileStream);
+            }
+            member.FileName = avatar.FileName;
+
+            return View();
+        }
+
+
         //回傳城市的JSON資料
 
         public IActionResult Cities()
